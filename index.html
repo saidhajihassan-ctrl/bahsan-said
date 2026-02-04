@@ -2,55 +2,97 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bahsan & Said 🤍</title>
 
 <style>
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #ffe5ec, #ffb3c6);
   font-family: "Segoe UI", Arial, sans-serif;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .card {
   background: white;
-  width: 360px;
-  padding: 28px;
+  width: 100%;
+  max-width: 420px;
+  min-width: 300px;
+  padding: clamp(20px, 5vw, 28px);
   border-radius: 28px;
   text-align: center;
   box-shadow: 0 25px 50px rgba(0,0,0,0.35);
   z-index: 2;
+  margin: auto;
+  transition: all 0.3s ease;
+}
+
+/* Make card slightly larger on bigger screens */
+@media (min-width: 768px) {
+  .card {
+    max-width: 450px;
+    padding: 32px;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 360px) {
+  .card {
+    border-radius: 20px;
+    padding: 16px;
+  }
 }
 
 h2 {
   color: #c9184a;
   margin-bottom: 8px;
+  font-size: clamp(24px, 5vw, 28px);
 }
 
 p {
   color: #555;
-  font-size: 15px;
+  font-size: clamp(14px, 4vw, 15px);
   line-height: 1.6;
   margin: 10px 0;
 }
 
 img {
-  width: 220px;
+  width: 100%;
+  max-width: 240px;
+  height: auto;
   border-radius: 18px;
   margin: 14px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Make images slightly larger on bigger screens */
+@media (min-width: 768px) {
+  img {
+    max-width: 260px;
+  }
 }
 
 button {
-  padding: 13px 24px;
-  font-size: 17px;
+  padding: clamp(12px, 4vw, 15px) clamp(20px, 5vw, 24px);
+  font-size: clamp(15px, 4vw, 17px);
   border: none;
   border-radius: 16px;
   margin: 10px;
   cursor: pointer;
+  width: auto;
+  min-width: 140px;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
 }
 
 #yes {
@@ -63,13 +105,36 @@ button {
   color: #444;
 }
 
+/* Button container for better layout */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* On small screens, stack buttons */
+@media (max-width: 480px) {
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  button {
+    width: 100%;
+    max-width: 220px;
+  }
+}
+
 /* Hearts */
 .heart {
-  position: absolute;
+  position: fixed;
   bottom: -30px;
   font-size: 18px;
   animation: floatUp linear forwards;
   opacity: 0.8;
+  z-index: 1;
 }
 
 @keyframes floatUp {
@@ -89,6 +154,34 @@ button {
   from { transform: scale(1); }
   to { transform: scale(1.15); }
 }
+
+/* Add a nice fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Make sure content doesn't get too wide on large screens */
+@media (min-width: 1200px) {
+  .card {
+    max-width: 480px;
+  }
+  
+  img {
+    max-width: 280px;
+  }
+}
+
+/* For tablets */
+@media (min-width: 600px) and (max-width: 768px) {
+  .card {
+    max-width: 500px;
+  }
+}
 </style>
 </head>
 
@@ -102,7 +195,7 @@ button {
 <div class="card">
   <h2>Bahsan 🤍</h2>
 
- <!-- Our Wedding Photo -->
+  <!-- Our Wedding Photo -->
   <img src="https://i.ibb.co/prKVd8Lw/wedding.jpg" alt="Our Wedding">
 
   <p>
@@ -133,8 +226,10 @@ button {
 
   <div id="ring">💍</div>
 
-  <button id="yes" onclick="sayYes()">I choose you ❤️</button>
-  <button id="no" onclick="fadeNo()">I need a moment</button>
+  <div class="button-container">
+    <button id="yes" onclick="sayYes()">I choose you ❤️</button>
+    <button id="no" onclick="fadeNo()">I need a moment</button>
+  </div>
 </div>
 
 <script>
@@ -164,7 +259,7 @@ function sayYes() {
       "You are my husband,\n" +
       "the father of our twins,\n" +
       "and my safe place.\n\n" +
-      "Let’s be gentle with each other 🤍";
+      "Let's be gentle with each other 🤍";
 
     window.location.href =
       "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
@@ -177,6 +272,14 @@ function fadeNo() {
   btn.style.opacity = "0";
   btn.style.pointerEvents = "none";
 }
+
+/* Play music on interaction (for browsers that block autoplay) */
+document.addEventListener('click', function() {
+  const audio = document.querySelector('audio');
+  if (audio) {
+    audio.play().catch(e => console.log("Audio play failed:", e));
+  }
+});
 </script>
 
 </body>
