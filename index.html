@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bahsan & Said 🤍</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffe5ec, #ffb3c6);
+  font-family: "Segoe UI", Arial, sans-serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: white;
+  width: 360px;
+  padding: 28px;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+  z-index: 2;
+}
+
+h2 {
+  color: #c9184a;
+  margin-bottom: 8px;
+}
+
+p {
+  color: #555;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+img {
+  width: 220px;
+  border-radius: 18px;
+  margin: 14px 0;
+}
+
+button {
+  padding: 13px 24px;
+  font-size: 17px;
+  border: none;
+  border-radius: 16px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+#no {
+  background: #e6e6e6;
+  color: #444;
+}
+
+/* Hearts */
+.heart {
+  position: absolute;
+  bottom: -30px;
+  font-size: 18px;
+  animation: floatUp linear forwards;
+  opacity: 0.8;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* Ring */
+#ring {
+  display: none;
+  font-size: 60px;
+  margin: 10px 0;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Soft background nasheed -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2023/03/01/audio_7e2b73a1c0.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <h2>Bahsan 🤍</h2>
+
+  <p>
+    We have memories.  
+    We have growth.  
+    And now… we have a future together.
+  </p>
+
+  <!-- Ultrasound scan -->
+  <img src="https://ibb.co/8DyZBn72" alt="Our babies">
+
+  <p>
+    These little hearts are part of us now 🤍  
+    Whatever memories come back,  
+    whatever fears appear…  
+    I am here. I am staying.
+  </p>
+
+  <!-- Her photo -->
+  <img src="https://ibb.co/jPkqqvXS" alt="Bahsan">
+
+  <p>
+    I choose you — again and again.  
+    As my wife.  
+    As the mother of our twins.  
+    As my home.
+  </p>
+
+  <div id="ring">💍</div>
+
+  <button id="yes" onclick="sayYes()">I choose you ❤️</button>
+  <button id="no" onclick="fadeNo()">I need a moment</button>
+</div>
+
+<script>
+/* Floating hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
+}
+setInterval(createHeart, 350);
+
+/* YES action */
+function sayYes() {
+  document.getElementById("ring").style.display = "block";
+
+  setTimeout(() => {
+    const phone = "254708455565"; 
+    const message =
+      "Yes Said 🤍\n\n" +
+      "I choose you forever.\n" +
+      "Not because we are perfect,\n" +
+      "but because we are growing together.\n\n" +
+      "You are my husband,\n" +
+      "the father of our twins,\n" +
+      "and my safe place.\n\n" +
+      "Let’s be gentle with each other 🤍";
+
+    window.location.href =
+      "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+  }, 1500);
+}
+
+/* NO gently fades */
+function fadeNo() {
+  const btn = document.getElementById("no");
+  btn.style.opacity = "0";
+  btn.style.pointerEvents = "none";
+}
+</script>
+
+</body>
+</html>
